@@ -1,0 +1,11 @@
+[user]
+    name = Nikos Vlastaras
+    email = nikosvlast@gmail.com
+[core]
+    editor = vim
+[pull]
+    rebase = true
+[init]
+	defaultBranch = master
+[merge]
+	tool = vimdiff

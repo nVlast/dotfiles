@@ -1,0 +1,257 @@
+" Don't try to be vi compatible
+set nocompatible
+
+" Helps force plugins to load correctly when it is turned back on below
+filetype off
+
+" Install vim-plug, if not already installed
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin()
+
+" Generic plugins
+Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-commentary'
+Plug 'yonchu/accelerated-smooth-scroll'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-unimpaired'
+Plug 'dense-analysis/ale'
+Plug 'ryvnf/readline.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'wellle/context.vim'
+Plug 'osyo-manga/vim-anzu'
+"Plug 'sheerun/vim-polyglot'
+"Plug '/usr/local/opt/fzf'
+"Plug 'junegunn/fzf.vim'
+"Plug 'ycm-core/YouCompleteMe'
+
+" Colorschemes
+Plug 'morhetz/gruvbox'
+
+" Python plugins
+Plug 'vim-python/python-syntax', { 'for': 'python' }
+"Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+
+" Golang plugins
+"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
+
+" Markdown plugins
+Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
+
+call plug#end()
+
+" Turn on syntax highlighting
+syntax on
+
+" For plugins to load correctly
+filetype plugin indent on
+
+" Security
+set modelines=0
+
+" Show line numbers
+set number
+set relativenumber
+
+" Show file stats
+set ruler
+
+" Blink cursor on error instead of beeping (grr)
+set visualbell
+
+" Encoding
+set encoding=utf-8
+
+" Whitespace
+set wrap
+"set textwidth=79
+set formatoptions=tcqrn1
+"set formatoptions=qrn1
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set noshiftround
+
+" Cursor motion
+set scrolloff=3
+set scroll=10
+set backspace=indent,eol,start
+set matchpairs+=<:> " use % to jump between pairs
+
+" Move up/down editor lines
+"nnoremap j gj
+"nnoremap k gk
+
+" Allow hidden buffers
+"set hidden
+
+" Rendering
+"set ttyfast
+
+" Status bar
+set laststatus=2
+" lightline takes care of showing mode
+set noshowmode
+
+" Last line
+set showmode
+set showcmd
+
+" Searching
+"nnoremap / /\v
+"vnoremap / /\v
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set showmatch
+"map <leader><space> :let @/=''<cr> " clear search
+
+" Formatting
+"map <leader>q gqip
+
+" Visualize tabs and newlines
+set showbreak=↪\
+set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:·
+"set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:∙
+"set listchars=tab:▸\ ,eol:¬
+"set listchars=tab:▸—,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:∙
+"set listchars=tab:→\ ,trail:∙,nbsp:•
+"set listchars=tab:▸—,eol:¬,space:·
+"set listchars=tab:>-,eol:<,space:*,trail:-
+
+" Uncomment this to enable by default:
+set list " To enable by default
+" Or use your leader key + l to toggle on/off
+"map <leader>l :set list!<CR> " Toggle tabs and EOL
+
+" Color scheme (terminal)
+set t_Co=256
+set background=dark
+set termguicolors
+" gruvbox settings
+let g:gruvbox_italic = 1
+let g:gruvbox_contrast_dark = "soft"
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'anzu' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'component': {
+      \   'filename': '%F',
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead',
+      \   'anzu': 'anzu#search_status'
+      \ },
+      \ }
+colorscheme gruvbox
+
+inoremap jk <ESC>
+"let mapleader=","
+"nnoremap <leader><space> :noh<cr>
+"nnoremap <tab> %
+"vnoremap <tab> %
+set wildmenu
+"set wildmode=list:longest
+"set lazyredraw
+set regexpengine=1
+set foldenable
+set foldlevelstart=10
+set foldnestmax=10
+set foldmethod=indent
+
+" vim-airline configuration
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline_theme='gruvbox'
+
+"autocmd VimLeave * call system("xsel -ib", getreg('+'))
+set clipboard=unnamed,unnamedplus
+set autoread
+"autocmd FileChangedShellPost * checktime
+"autocmd FileChangedShell *.txt checktime
+"autocmd FileChangedShell * bufdo e!
+"autocmd FileChangedShell * echo "File changed, press F9 to reload."
+
+" shows partial command on bottom right
+set cursorline
+"set undofile
+"let g:elite_mode=1
+
+"" Disable arrow movement, resize splits instead.
+"if get(g:, 'elite_mode')
+"	nnoremap <Up>    :resize +2<CR>
+"	nnoremap <Down>  :resize -2<CR>
+"	nnoremap <Left>  :vertical resize +2<CR>
+"	nnoremap <Right> :vertical resize -2<CR>
+"endif
+set updatetime=100
+
+" vim airline configuration
+"let g:airline_theme='gruvbox'
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline_powerline_fonts = 1
+"let g:airline_theme='term'
+
+"set colorcolumn=80
+
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" Test line: foo bar baz foobar fubar
+" Test line: foo bar baz foobar fubar foo foo foobaz
+"set guifont=SF\ Mono\ Regular\ Nerd\ Font\ Mono:h14
+set guifont=Fira\ Code\ Nerd\ Font\ Mono\ 11
+
+" Enables scrolling and VISUAL selection with mouse
+set mouse=a
+
+"nmap <F8> :TagbarToggle<CR>
+
+" splits
+set splitbelow
+set splitright
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" vim-anzu
+" mapping
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+" clear status
+nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+" statusline
+"set statusline=%{anzu#search_status()}
+
+set tags=tags
+"autocmd BufWritePost *.py silent! !ctags -R --python-kinds=-i --languages=python 2&gt; /dev/null &amp;
+"
+
+let g:ale_completion_enabled = 1
+let g:ale_completion_delay = 10
+let g:ale_completion_max_suggestions = 50
+
+" gopass configuration (https://github.com/gopasspw/gopass/blob/master/docs/setup.md#securing-your-editor)
+au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
