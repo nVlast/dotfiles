@@ -1,0 +1,91 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'tpope/vim-vinegar'
+Plugin 'yonchu/accelerated-smooth-scroll'
+Plugin 'vim-airline/vim-airline'
+Plugin 'ryanoasis/vim-devicons'
+Plugin 'morhetz/gruvbox'
+Plugin 'roosta/srcery'
+"Plugin 'nightsense/seabird'
+"Plugin 'leafgarland/typescript-vim'
+"Plugin 'l04m33/vlime', {'rtp': 'vim/'}
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+"let mapleader=","
+imap jk <esc>
+nnoremap <leader><space> :noh<cr>
+nnoremap / /\v
+vnoremap / /\v
+nnoremap <tab> %
+vnoremap <tab> %
+syntax on
+set relativenumber
+set number
+set ignorecase smartcase
+set hlsearch showmatch incsearch
+set shiftwidth=2 tabstop=2 expandtab softtabstop=2
+set laststatus=2
+set backspace=indent,eol,start
+
+set encoding=utf8
+set t_Co=256
+set termguicolors
+set background=dark
+let g:gruvbox_italic=1
+colorscheme gruvbox
+"let g:srcery_italic=1
+"colorscheme srcery
+
+" vim airline configuration
+let g:airline_theme='gruvbox'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+"let g:airline_theme='term'
+
+" disable modelines in order to prevent some security exploits
+set modelines=0
+set scrolloff=3
+" shows partial command on bottom right
+set showcmd
+set wildmenu
+set wildmode=list:longest
+set cursorline
+set ttyfast
+"set undofile
+
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+set colorcolumn=80
+
+set list
+set listchars=tab:▸—,eol:¬,space:·
+"set listchars=tab:>-,eol:<,space:*,trail:-
+
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" vim-jsx syntax configuration
+let g:jsx_ext_required=0
+
+" Test line: foo bar baz foobar fubar
+" Test line: foo bar baz foobar fubar foo foo foobaz
+set guifont=SF\ Mono\ Regular\ Nerd\ Font\ Mono:h14
+
+" Enables scrolling and VISUAL selection with mouse
+set mouse=a
