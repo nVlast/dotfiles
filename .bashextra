@@ -1,0 +1,26 @@
+# Bash history configuration
+
+# 1. Append history instead of rewriting it
+shopt -s histappend
+
+# 2. Allow a larger history file
+HISTFILESIZE=1000000
+HISTSIZE=1000000
+
+# 3. Don't store duplicate commands and commands that start with space
+HISTCONTROL=ignoreboth
+
+# 4. Removes specific commands from history
+# e.g. the following exclude ls calls, job control builtins like bg and fg, and calls to history itself
+#HISTIGNORE='ls:bg:fg:history'
+
+# 5. Record timestamps
+HISTTIMEFORMAT='%F %T '
+
+# 6. Use one command per line
+shopt -s cmdhist
+
+# 7. Store history immediately
+#PROMPT_COMMAND='history -a'
+# the above replaces PROMPT_COMMAND so maybe use something like the following
+PROMPT_COMMAND="${PROMPT_COMMAND}; history -a"
