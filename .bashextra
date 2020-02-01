@@ -28,3 +28,7 @@ shopt -s cmdhist
 #PROMPT_COMMAND="${PROMPT_COMMAND}; history -a"
 # or another alternative
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+# 8. Disable terminal suspension (Ctrl-S) in order to use this shortcut to forward-search in history
+# Note: Ctrl-Q resumes terminal suspension
+stty -ixon
