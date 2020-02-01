@@ -1,4 +1,6 @@
 # Bash history configuration
+# Sources:
+# - https://www.digitalocean.com/community/tutorials/how-to-use-bash-history-commands-and-expansions-on-a-linux-vps
 
 # 1. Append history instead of rewriting it
 shopt -s histappend
@@ -23,4 +25,6 @@ shopt -s cmdhist
 # 7. Store history immediately
 #PROMPT_COMMAND='history -a'
 # the above replaces PROMPT_COMMAND so maybe use something like the following
-PROMPT_COMMAND="${PROMPT_COMMAND}; history -a"
+#PROMPT_COMMAND="${PROMPT_COMMAND}; history -a"
+# or another alternative
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
