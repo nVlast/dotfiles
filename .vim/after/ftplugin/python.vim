@@ -14,7 +14,7 @@ let g:ale_fixers = {
       \    'python': ['black'],
       \}
 let g:ale_linters = {
-      \   'python': ['pyright', 'pylint', 'flake8', 'bandit', 'mypy'],
+      \   'python': ['flake8', 'pyright', 'pylint', 'bandit', 'mypy', 'isort'],
       \}
 
 set omnifunc=ale#completion#OmniFunc
