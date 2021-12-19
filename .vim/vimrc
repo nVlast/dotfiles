@@ -117,7 +117,8 @@ set showmatch
 "map <leader>q gqip
 
 " Visualize tabs and newlines
-set showbreak=↪\
+"set showbreak=↪\
+set showbreak=>\
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:·
 "set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:∙
 "set listchars=tab:▸\ ,eol:¬
