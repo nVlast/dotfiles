@@ -17,6 +17,12 @@ let g:ale_linters = {
       \   'python': ['flake8', 'pyright', 'pylint', 'bandit', 'mypy', 'isort'],
       \}
 
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set noshiftround
+
 set omnifunc=ale#completion#OmniFunc
 inoremap <c-@> <c-x><c-o>
 "inoremap <silent> <C-@> <C-\><C-O>:ALEComplete<CR>
