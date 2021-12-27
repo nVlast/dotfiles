@@ -1,10 +1,10 @@
 [user]
-    name = Nikos Vlastaras
-    email = nikosvlast@gmail.com
+	name = Nikos Vlastaras
+	email = nikosvlast@gmail.com
 [core]
-    editor = vim
+	editor = vim
 [pull]
-    rebase = true
+	rebase = true
 [init]
 	defaultBranch = master
 [merge]
