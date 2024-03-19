@@ -29,6 +29,8 @@ Plug 'osyo-manga/vim-anzu'
 "Plug '/usr/local/opt/fzf'
 "Plug 'junegunn/fzf.vim'
 "Plug 'ycm-core/YouCompleteMe'
+Plug 'vim-scripts/DrawIt'
+Plug 'tpope/vim-dispatch'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
@@ -37,11 +39,27 @@ Plug 'morhetz/gruvbox'
 Plug 'vim-python/python-syntax', { 'for': 'python' }
 "Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
+" Python requirements plugins
+Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
+
 " Golang plugins
-"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': 'go' }
 
 " Markdown plugins
-Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
+"Plug 'junegunn/goyo.vim', { 'for': 'markdown' }
+
+" Typescript plugins
+Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
+
+" Rust plugins
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+
+" Javascript plugins
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+
+" HCL plugins
+Plug 'jvirtanen/vim-hcl', { 'for': 'hcl' }
 
 call plug#end()
 
@@ -50,6 +68,59 @@ syntax on
 
 " For plugins to load correctly
 filetype plugin indent on
+
+if $TERM == "xterm-kitty"
+  " Mouse support
+  set mouse=a
+  set ttymouse=sgr
+  set balloonevalterm
+  " Styled and colored underline support
+  let &t_AU = "\e[58:5:%dm"
+  let &t_8u = "\e[58:2:%lu:%lu:%lum"
+  let &t_Us = "\e[4:2m"
+  let &t_Cs = "\e[4:3m"
+  let &t_ds = "\e[4:4m"
+  let &t_Ds = "\e[4:5m"
+  let &t_Ce = "\e[4:0m"
+  " Strikethrough
+  let &t_Ts = "\e[9m"
+  let &t_Te = "\e[29m"
+  " Truecolor support
+  let &t_8f = "\e[38:2:%lu:%lu:%lum"
+  let &t_8b = "\e[48:2:%lu:%lu:%lum"
+  let &t_RF = "\e]10;?\e\\"
+  let &t_RB = "\e]11;?\e\\"
+  " Bracketed paste
+  let &t_BE = "\e[?2004h"
+  let &t_BD = "\e[?2004l"
+  let &t_PS = "\e[200~"
+  let &t_PE = "\e[201~"
+  " Cursor control
+  let &t_RC = "\e[?12$p"
+  let &t_SH = "\e[%d q"
+  let &t_RS = "\eP$q q\e\\"
+  let &t_SI = "\e[5 q"
+  let &t_SR = "\e[3 q"
+  let &t_EI = "\e[1 q"
+  let &t_VS = "\e[?12l"
+  " Focus tracking
+  let &t_fe = "\e[?1004h"
+  let &t_fd = "\e[?1004l"
+  execute "set <FocusGained>=\<Esc>[I"
+  execute "set <FocusLost>=\<Esc>[O"
+  " Window title
+  let &t_ST = "\e[22;2t"
+  let &t_RT = "\e[23;2t"
+
+  " vim hardcodes background color erase even if the terminfo file does
+  " not contain bce. This causes incorrect background rendering when
+  " using a color theme with a background color in terminals such as
+  " kitty that do not support background color erase.
+  let &t_ut=''
+
+  " for using ryvnf/readline.vim with kitty terminal
+  let g:readline_meta = 1
+endif
 
 " Security
 set modelines=0
@@ -78,9 +149,12 @@ set formatoptions=tcqrn1
 "set expandtab
 "set noshiftround
 
+" Setting backup copy preserves file inodes, which are needed for Docker file mounting
+set backupcopy=yes
+
 " Cursor motion
-set scrolloff=3
-set scroll=10
+"set scrolloff=3
+"set scroll=10
 set backspace=indent,eol,start
 set matchpairs+=<:> " use % to jump between pairs
 
@@ -119,7 +193,8 @@ set showmatch
 " Visualize tabs and newlines
 "set showbreak=↪\
 set showbreak=>\
-set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:·
+set listchars=tab:→\ ,eol:¬,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:·
+"set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:·
 "set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:∙
 "set listchars=tab:▸\ ,eol:¬
 "set listchars=tab:▸—,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:∙
@@ -137,7 +212,12 @@ set t_Co=256
 set background=dark
 set termguicolors
 " gruvbox settings
+let g:gruvbox_bold = 1
 let g:gruvbox_italic = 1
+let g:gruvbox_undercurl = 1
+let g:gruvbox_underline = 1
+let g:gruvbox_inverse = 1
+"let g:gruvbox_improved_strings = 1
 let g:gruvbox_contrast_dark = "soft"
 let g:lightline = {
       \ 'colorscheme': 'gruvbox',
@@ -176,7 +256,7 @@ set foldmethod=indent
 "let g:airline#extensions#tabline#enabled = 1
 "let g:airline_theme='gruvbox'
 
-"autocmd VimLeave * call system("xsel -ib", getreg('+'))
+autocmd VimLeave * call system("xsel -ib", getreg('+'))
 set clipboard=unnamed,unnamedplus
 set autoread
 "autocmd FileChangedShellPost * checktime
@@ -218,7 +298,8 @@ inoremap <right> <nop>
 " Test line: foo bar baz foobar fubar
 " Test line: foo bar baz foobar fubar foo foo foobaz
 "set guifont=SF\ Mono\ Regular\ Nerd\ Font\ Mono:h14
-set guifont=Fira\ Code\ Nerd\ Font\ Mono\ 11
+"set guifont=Fira\ Code\ Nerd\ Font\ Mono\ 11
+set guifont=Iosevka\ 11
 
 " Enables scrolling and VISUAL selection with mouse
 set mouse=a
@@ -256,3 +337,11 @@ let g:ale_completion_max_suggestions = 50
 
 " gopass configuration (https://github.com/gopasspw/gopass/blob/master/docs/setup.md#securing-your-editor)
 "au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+
+let g:netrw_banner = 0
+let g:netrw_browse_split = 4
+let g:netrw_winsize = 25
+let g:netrw_altv = 1
+let g:netrw_alto = 1
+
+map <silent> <C-L> :Lexplore<CR>
