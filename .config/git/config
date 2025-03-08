@@ -1,11 +1,59 @@
+# some of these options are from https://blog.gitbutler.com/how-git-core-devs-configure-git/
 [user]
 	name = Nikos Vlastaras
 	email = nikosvlast@gmail.com
 [core]
 	editor = vim
+	fsmonitor = true
+	# pager = delta
+	untrackedCache = true
+	excludesfile = ~/.gitignore
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
+[init]
+	defaultBranch = main
+[diff]
+	algorithm = histogram
+	colormoved = plain
+	colormovedws = allow-indentation-change
+	mnemonicPrefix = true
+	renames = true
+[push]
+	default = simple
+	autoSetupRemote = always
+	followTags = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+	writeCommitGraph = true
+[help]
+	autocorrect = prompt
+[commit]
+	verbose = true
+[rerere]
+	enabled = true
+	autoupdate = true
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+[interactive]
+	# diffFilter = delta --color-only
+# [delta]
+# 	navigate = true  # use n and N to move between diff sections
+# 	# side-by-side = true
+# 	line-numbers = true
 [pull]
 	rebase = true
-[init]
-	defaultBranch = master
 [merge]
 	tool = vimdiff
+	conflictstyle = zdiff3
+[remote "origin"]
+	fetch = +refs/notes/*:refs/notes/*
+[notes]
+	displayRef = refs/notes/*
