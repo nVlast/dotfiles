@@ -24,7 +24,7 @@
 	renames = true
 [push]
 	default = simple
-	autoSetupRemote = always
+	autoSetupRemote = true
 	followTags = true
 [fetch]
 	prune = true
